@@ -80,6 +80,8 @@ This demonstrates that the model captures meaningful linguistic patterns rather 
 
 A simple Streamlit web application allows users to paste email content and receive real-time phishing predictions using the trained Logistic Regression model.
 
+(COMING SOON)
+
 <!-- ### Running the Demo Locally
 ```bash
 pip install -r requirements.txt
@@ -93,4 +95,5 @@ streamlit run app.py
 - NumPy
 - Matplotlib
 - Jupyter Notebook
+
 
