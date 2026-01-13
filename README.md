@@ -13,7 +13,7 @@ This project uses the **Phishing Email Dataset from Kaggle**.
 git clone https://github.com/minhanh0503/phishingemail_detector.git
 cd phishingemail_detector
 ```
-2. Download the dataset CSV file from Kaggle  
+2. Download the dataset CSV file from Kaggle using this link: https://www.kaggle.com/datasets/naserabdullahalam/phishing-email-dataset?resource=download&select=phishing_email.csv 
 3. Place the file in the project directory as:
  phishingemail_detector/phishing_email.csv
 
@@ -93,3 +93,4 @@ streamlit run app.py
 - NumPy
 - Matplotlib
 - Jupyter Notebook
+
