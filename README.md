@@ -78,15 +78,26 @@ This demonstrates that the model captures meaningful linguistic patterns rather 
 
 ## 🚀 Streamlit Demo
 
-A simple Streamlit web application allows users to paste email content and receive real-time phishing predictions using the trained Logistic Regression model.
+This project includes an interactive **Streamlit web application** that allows users to paste email content and receive **real-time phishing predictions** powered by a trained **Logistic Regression + TF-IDF** model.
 
-(COMING SOON)
+### ✨ Features
+- Real-time phishing vs legitimate email classification  
+- Confidence score visualization for predictions  
+- Explainable AI: highlights top phishing-related keywords contributing to the decision  
+- Sample phishing email for quick testing  
 
-<!-- ### Running the Demo Locally
+### 🧠 Model Overview
+- Algorithm: Logistic Regression  
+- Text Representation: TF-IDF (unigrams & bigrams)  
+- Evaluation: ~98% F1-score on test data  
+
+### ▶️ Running the Demo Locally
 ```bash
 pip install -r requirements.txt
-streamlit run app.py
-``` -->
+python -m streamlit run app.py
+```
+The app will be available at: http://localhost:8501
+
 
 ## 🛠️ Tech Stack
 - Python
