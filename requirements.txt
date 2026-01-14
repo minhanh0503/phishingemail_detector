@@ -1,5 +1,4 @@
-streamlit
+streamlit --pre
 scikit-learn
 numpy
 pandas
-python
