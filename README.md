@@ -98,6 +98,8 @@ python -m streamlit run app.py
 ```
 The app will be available at: http://localhost:8501
 
+## DEMO
+see the demo at: https://phishingemail-detector.streamlit.app/
 
 ## 🛠️ Tech Stack
 - Python
@@ -106,5 +108,6 @@ The app will be available at: http://localhost:8501
 - NumPy
 - Matplotlib
 - Jupyter Notebook
+
 
 
