@@ -1,6 +1,7 @@
 # Phishing Email Detection using Machine Learning
 
 This project focuses on detecting phishing emails using classical machine learning techniques and natural language processing (NLP). Multiple models were trained and evaluated, with **Logistic Regression** selected as the final model due to its strong performance, interpretability, and suitability for security-focused applications.
+(CURRENTLY IN THE PROCESS OF DEVELOPING THE WHOLE APPLICATION WITH MORE ADVANCED FUNCTIONS, SUCH AS DETECTING FROM THE EMAIL ADDRESSES AND URL LINKS)
 
 ## 📂 Dataset
 This project uses the **Phishing Email Dataset from Kaggle**.
@@ -108,6 +109,7 @@ see the demo at: https://phishingemail-detector.streamlit.app/
 - NumPy
 - Matplotlib
 - Jupyter Notebook
+
 
 
 
