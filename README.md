@@ -3,10 +3,10 @@
 This project focuses on detecting phishing emails using classical machine learning techniques and natural language processing (NLP). Multiple models were trained and evaluated, with **Logistic Regression** selected as the final model due to its strong performance, interpretability, and suitability for security-focused applications.
 (CURRENTLY IN THE PROCESS OF DEVELOPING THE WHOLE APPLICATION WITH MORE ADVANCED FUNCTIONS, SUCH AS DETECTING FROM THE EMAIL ADDRESSES AND URL LINKS)
 
-## 📂 Dataset
+## Dataset
 This project uses the **Phishing Email Dataset from Kaggle**.
 
-⚠️ The dataset is not included in this repository due to GitHub’s 100 MB file size limit.
+ The dataset is not included in this repository due to GitHub’s 100 MB file size limit.
 
 ### Running the Project Locally
 1. Clone this repository 
@@ -18,25 +18,25 @@ cd phishingemail_detector
 3. Place the file in the project directory as:
  phishingemail_detector/phishing_email.csv
 
-## 🧠 Feature Engineering
+## Feature Engineering
 - Text preprocessing and cleaning
 - TF-IDF vectorization with unigrams and bigrams
 - High-dimensional sparse feature representation
 
-## 🤖 Models Trained
+## Models Trained
 - Logistic Regression (Final Model)
 - Naive Bayes
 - Random Forest
 - Support Vector Machine (SVM)
 - XGBoost (used for performance comparison)
 
-## ⚙️ Final Model Configuration
+## Final Model Configuration
 - Solver: LBFGS
 - Regularization: L2
 - Max Iterations: 1000
 - Feature Representation: TF-IDF
 
-## 📊 Model Evaluation
+## Model Evaluation
 
 The Logistic Regression model was evaluated using a held-out test set. Performance was measured using precision, recall, F1-score, and confusion matrix analysis.
 
@@ -81,18 +81,18 @@ This demonstrates that the model captures meaningful linguistic patterns rather 
 
 This project includes an interactive **Streamlit web application** that allows users to paste email content and receive **real-time phishing predictions** powered by a trained **Logistic Regression + TF-IDF** model.
 
-### ✨ Features
+### Features
 - Real-time phishing vs legitimate email classification  
 - Confidence score visualization for predictions  
 - Explainable AI: highlights top phishing-related keywords contributing to the decision  
 - Sample phishing email for quick testing  
 
-### 🧠 Model Overview
+### Model Overview
 - Algorithm: Logistic Regression  
 - Text Representation: TF-IDF (unigrams & bigrams)  
 - Evaluation: ~98% F1-score on test data  
 
-### ▶️ Running the Demo Locally
+### Running the Demo Locally
 ```bash
 pip install -r requirements.txt
 python -m streamlit run app.py
@@ -102,7 +102,7 @@ The app will be available at: http://localhost:8501
 ## DEMO
 see the demo at: https://phishingemail-detector.streamlit.app/
 
-## 🛠️ Tech Stack
+## Tech Stack
 - Python
 - scikit-learn
 - Pandas
