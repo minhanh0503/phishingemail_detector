@@ -1,55 +1,67 @@
-from backend.analyzer.email_domain_analyzer import analyze_sender_email
-from backend.analyzer.whois_analyzer import analyze_domain_whois
-
-result = analyze_sender_email(
-    email="support@paypa1-secure.com",
-    display_name="PayPal Support"
-)
-print(result)
-
-print(analyze_domain_whois("paypal.com"))
-print(analyze_domain_whois("secure-paypal-login-verify.xyz"))
-
-from backend.utils.urls_utils import extract_urls, extract_domain_from_url
-from backend.analyzer.urldomain_analyzer import analyze_url_domain
-
-email_body = """
-Hello,
-
-Please verify your account immediately:
-https://secure-paypal-login-verify.xyz/auth
-Or click http://192.168.1.1/login
-Short link: bit.ly/3fake
-
-Thanks,
-PayPal Security
-"""
-
-urls = extract_urls(email_body)
-print("Extracted URLs:", urls)
-
-for url in urls:
-    domain = extract_domain_from_url(url)
-    analysis = analyze_url_domain(domain, sender_domain="paypal.com")
-    print(domain, analysis)
-
-from backend.analyzer.riskengine_analyzer import analyze_email_risk
-
-email_body = """
-Dear user,
-
-Your PayPal account has been limited.
-Verify immediately:
-https://secure-paypal-login-verify.xyz/auth
-Short link: bit.ly/3fake
-
-Failure to act will result in suspension.
-"""
-
-result = analyze_email_risk(
-    sender_email="security@paypa1-support.com",
-    email_body=email_body
-)
-
+from analyzer.riskengine_analyzer import analyze_email_risk
 from pprint import pprint
-pprint(result)
+
+
+def test_phishing_email():
+    email_body = """
+    Dear user,
+
+    Your PayPal account has been limited.
+    Verify immediately:
+    https://secure-paypal-login-verify.xyz/auth
+    http://192.168.1.1/login
+    bit.ly/3fake
+
+    Failure to act will result in suspension.
+    """
+
+    sender_email = "security@paypa1-support.com"
+
+    result = analyze_email_risk(sender_email, email_body)
+
+    # -----------------------------
+    # PRINT RESULT
+    # -----------------------------
+    pprint(result)
+
+    # -----------------------------
+    # BASIC STRUCTURE TESTS
+    # -----------------------------
+    assert "total_risk_score" in result
+    assert "ml_prediction" in result
+    assert "rule_engine" in result
+    assert "scoring" in result
+    assert "explanation" in result
+
+    # -----------------------------
+    # SCORE VALIDATION
+    # -----------------------------
+    score = result["total_risk_score"]
+    assert 0 <= score <= 100, f"Invalid score: {score}"
+
+    # -----------------------------
+    # ML VALIDATION
+    # -----------------------------
+    ml = result["ml_prediction"]
+    assert "prediction" in ml
+    assert "confidence" in ml
+    assert 0.0 <= ml["confidence"] <= 1.0
+
+    # -----------------------------
+    # RULE ENGINE VALIDATION
+    # -----------------------------
+    rules = result["rule_engine"]
+    assert "score" in rules
+    assert "reasons" in rules
+    assert isinstance(rules["reasons"], list)
+
+    # -----------------------------
+    # URL VALIDATION
+    # -----------------------------
+    assert len(result["url_analyses"]) > 0, "No URLs detected"
+
+    print("\nALL TESTS PASSED")
+
+
+if __name__ == "__main__":
+    test_phishing_email()

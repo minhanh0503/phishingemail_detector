@@ -1,12 +1,3 @@
-def extract_domain(email: str) -> str:
-    return email.split("@")[-1].lower()
-
-def extract_local_part(email: str) -> str:
-    return email.split("@")[0].lower()
-
-def extract_tld(domain: str) -> str:
-    return domain.split(".")[-1]
-
 def levenshtein(a: str, b: str) -> int:
     if a == b:
         return 0

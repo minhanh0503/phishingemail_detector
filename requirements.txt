@@ -1,4 +1,0 @@
-streamlit --pre
-scikit-learn
-numpy
-pandas

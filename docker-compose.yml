@@ -1,0 +1,20 @@
+services:
+  backend:
+    build: ./backend
+    container_name: phishing-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build: ./frontend
+    container_name: phishing-frontend
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+    environment:
+      - API_URL=http://backend:8000/analyze/email
