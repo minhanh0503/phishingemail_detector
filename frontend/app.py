@@ -2,7 +2,7 @@ import os
 import streamlit as st
 import requests
 
-API_URL = os.getenv("API_URL", "http://backend:8000/analyze/email")
+API_URL = os.getenv("API_URL", "https://phishingemail-detector.onrender.com")
 
 st.set_page_config(page_title="Phishing Detector", page_icon="🚨")
 

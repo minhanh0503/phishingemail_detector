@@ -17,4 +17,4 @@ services:
     depends_on:
       - backend
     environment:
-      - API_URL=http://backend:8000/analyze/email
+      - API_URL=https://phishingemail-detector.onrender.com
