@@ -2,7 +2,7 @@ import os
 import streamlit as st
 import requests
 
-API_URL = os.getenv("API_URL", "https://phishingemail-detector.onrender.com")
+API_URL = "https://phishingemail-detector.onrender.com/analyze/email"
 
 st.set_page_config(page_title="Phishing Detector", page_icon="🚨")
 
@@ -11,7 +11,7 @@ st.write("ML + Rule Engine + URL + WHOIS Analysis")
 
 # MODE
 mode = st.radio("Mode", ["Quick ML", "Full Hybrid Analysis"])
-
+st.write("DEBUG API_URL:", API_URL)
 # STATE
 if "email_text" not in st.session_state:
     st.session_state.email_text = ""
