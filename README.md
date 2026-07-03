@@ -1,115 +1,105 @@
-# Phishing Email Detection using Machine Learning
+# Phishing Email Detection System (Hybrid AI)
 
-This project focuses on detecting phishing emails using classical machine learning techniques and natural language processing (NLP). Multiple models were trained and evaluated, with **Logistic Regression** selected as the final model due to its strong performance, interpretability, and suitability for security-focused applications.
-(CURRENTLY IN THE PROCESS OF DEVELOPING THE WHOLE APPLICATION WITH MORE ADVANCED FUNCTIONS, SUCH AS DETECTING FROM THE EMAIL ADDRESSES AND URL LINKS)
+An end-to-end AI-powered security application that detects phishing attempts using machine learning and a rule-based heuristics engine. 
 
-## Dataset
-This project uses the **Phishing Email Dataset from Kaggle**.
+The system features a **FastAPI** backend and an interactive **Streamlit** dashboard, offering two analysis modes:
+* **Quick ML Mode:** Fast prediction using a trained Logistic Regression model.
+* **Full Hybrid Mode:** Comprehensive scoring using ML, rule engines, URL extraction, and live WHOIS domain analysis.
 
- The dataset is not included in this repository due to GitHub’s 100 MB file size limit.
+---
 
-### Running the Project Locally
-1. Clone this repository 
+## System Architecture
+Streamlit Frontend ──> FastAPI Backend ──> [ ML + Rule Engine + URL + WHOIS ]
+
+---
+
+## Features
+
+### Detection Capabilities
+* **Security Rules Engine:** Flags suspicious keywords, URL shorteners, IP-based URLs, domain mismatches, free email providers, and newly registered domains.
+* **URL & WHOIS Analysis:** Extracts domains to check live registry age and active risk signals.
+* **Explainable AI Output:** Provides a breakdown of the final weighted risk score.
+
+### Tech Stack
+* **Backend:** Python, FastAPI, Docker, `python-whois`, `scikit-learn`
+* **Frontend:** Streamlit
+
+---
+
+## Installation & Setup
+
+### 1. Clone the Repository
 ```bash
-git clone https://github.com/minhanh0503/phishingemail_detector.git
+git clone [https://github.com/minhanh0503/phishingemail_detector.git](https://github.com/minhanh0503/phishingemail_detector.git)
 cd phishingemail_detector
 ```
-2. Download the dataset CSV file from Kaggle using this link: https://www.kaggle.com/datasets/naserabdullahalam/phishing-email-dataset?resource=download&select=phishing_email.csv 
-3. Place the file in the project directory as:
- phishingemail_detector/phishing_email.csv
-
-## Feature Engineering
-- Text preprocessing and cleaning
-- TF-IDF vectorization with unigrams and bigrams
-- High-dimensional sparse feature representation
-
-## Models Trained
-- Logistic Regression (Final Model)
-- Naive Bayes
-- Random Forest
-- Support Vector Machine (SVM)
-- XGBoost (used for performance comparison)
-
-## Final Model Configuration
-- Solver: LBFGS
-- Regularization: L2
-- Max Iterations: 1000
-- Feature Representation: TF-IDF
-
-## Model Evaluation
-
-The Logistic Regression model was evaluated using a held-out test set. Performance was measured using precision, recall, F1-score, and confusion matrix analysis.
-
-### Evaluation Metrics
-- **Precision**: Measures how many emails flagged as phishing were actually phishing  
-- **Recall**: Measures how many phishing emails were correctly detected  
-- **F1-score**: Balances precision and recall  
-
-In phishing detection, **recall is particularly important**, as false negatives (missed phishing emails) pose a higher security risk than false positives.
-
-### Confusion Matrix Results
-
-- **True Positives (TP): 8,433** – phishing emails correctly identified  
-- **False Positives (FP): 207** – legitimate emails incorrectly flagged  
-- **True Negatives (TN): 7,728** – legitimate emails correctly identified  
-- **False Negatives (FN): 130** – phishing emails missed  
-
-Out of **16,498 emails**, the model made **337 misclassifications**, corresponding to a very low error rate. Importantly, the number of false negatives is minimal, reducing the risk of phishing emails bypassing detection while maintaining an acceptable false-positive rate.
-
-Overall, the model achieves a strong balance between security effectiveness and user experience while remaining interpretable and efficient.
-![alt text](image.png)
-## 🔎 Feature Interpretation
-
-One advantage of using Logistic Regression is its interpretability. By analyzing model coefficients, we can identify which words most strongly influence phishing predictions.
-
-### Top Phishing Indicators
-The model assigns higher weights to words commonly associated with phishing and spam emails, such as:
-- `http`, `click`, `site`
-- `account`, `bank`, `money`, `investment`
-- `viagra`, `meds`, `replica`, `watches`
-
-These terms reflect common phishing tactics including malicious links, financial scams, and spam content.
-
-### Legitimate Email Indicators
-Words with negative weights are more strongly associated with legitimate emails, including:
-- `university`, `python`, `perl`, `opensuse`
-- `thanks`, personal names, and conversational terms
-
-This demonstrates that the model captures meaningful linguistic patterns rather than relying on superficial features.
-
-## 🚀 Streamlit Demo
-
-This project includes an interactive **Streamlit web application** that allows users to paste email content and receive **real-time phishing predictions** powered by a trained **Logistic Regression + TF-IDF** model.
-
-### Features
-- Real-time phishing vs legitimate email classification  
-- Confidence score visualization for predictions  
-- Explainable AI: highlights top phishing-related keywords contributing to the decision  
-- Sample phishing email for quick testing  
-
-### Model Overview
-- Algorithm: Logistic Regression  
-- Text Representation: TF-IDF (unigrams & bigrams)  
-- Evaluation: ~98% F1-score on test data  
-
-### Running the Demo Locally
+### 2. Backend Setup (FastAPI)
 ```bash
+cd backend
 pip install -r requirements.txt
-python -m streamlit run app.py
+uvicorn main:app --reload
 ```
-The app will be available at: http://localhost:8501
+Runs at: http://localhost:8000
+### 3. Frontend Setup (Streamlit)
+```bash
+cd frontend
+pip install -r requirements.txt
+streamlit run app.py
+```
+Runs at: http://localhost:8501
 
-## DEMO
-see the demo at: https://phishingemail-detector.streamlit.app/
+---
+## Docker Deployment
+```bash
+docker-compose up --build
+```
+## API Endpoints
+Analyze Email
 
-## Tech Stack
-- Python
-- scikit-learn
-- Pandas
-- NumPy
-- Matplotlib
-- Jupyter Notebook
+```bash
+POST /analyze/email
+```
+Request Body:
+JSON
+```bash
+{
+  "sender_email": "test@example.com",
+  "email_body": "Your account has been suspended...",
+  "mode": "Quick ML" 
+}
+```
+Response (Hybrid Mode):
 
+JSON
+```bash
+{
+  "verdict": "PHISHING",
+  "total_risk_score": 87,
+  "ml_prediction": {},
+  "rule_engine": {},
+  "url_analyses": [],
+  "whois_analyses": []
+}
+```
 
+---
 
+## Model & Dataset
+- Dataset: Phishing Email Dataset (Kaggle) (Not included in repo due to size)
+
+- Model Pipeline: Text cleaning -> TF-IDF (unigrams + bigrams) -> Logistic Regression (lbfgs, max iterations: 1000).
+---
+
+## Evaluation Performance
+- F1-Score: ~98%
+
+- Confusion Matrix: 8,433 TP | 7,728 TN | 207 FP | 130 FN
+---
+## Links & Author
+- Live Demo: [Streamlit App [Phising Detector](https://phishingemaildetectionsystem.streamlit.app/
+)
+
+- Developer: Minh Anh
+---
+## Disclaimer: This project is for educational and research purposes only. It is not intended to replace enterprise production security systems.
 
