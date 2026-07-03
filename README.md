@@ -96,7 +96,7 @@ JSON
 - Confusion Matrix: 8,433 TP | 7,728 TN | 207 FP | 130 FN
 ---
 ## Links & Author
-- Live Demo: [Streamlit App [Phising Detector](https://phishingemaildetectionsystem.streamlit.app/
+- Live Demo: [Phising Detector](https://phishingemaildetectionsystem.streamlit.app/
 )
 
 - Developer: Minh Anh
