@@ -11,7 +11,6 @@ st.write("ML + Rule Engine + URL + WHOIS Analysis")
 
 # MODE
 mode = st.radio("Mode", ["Quick ML", "Full Hybrid Analysis"])
-st.write("DEBUG API_URL:", API_URL)
 # STATE
 if "email_text" not in st.session_state:
     st.session_state.email_text = ""
